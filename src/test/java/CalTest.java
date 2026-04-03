@@ -10,4 +10,9 @@ class CalTest {
         int ret = cal.getSum(10, 20);
         assertEquals(30, ret);
     }
+
+    @Test
+    void failTesT() {
+        fail();
+    }
 }
