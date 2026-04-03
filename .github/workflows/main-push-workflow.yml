@@ -11,30 +11,22 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  send-mail-job:
+  build-and-test-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure AWS credential
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: ap-northeast-2
-      - name: Send Email
-        run: |
-          aws ses send-email \
-            --from "mincoding@naver.com" \
-            --destination '{
-              "ToAddresses": ["sejin.choi@mincoding.co.kr"]
-            }' \
-            --message '{
-              "Subject": {
-                "Data": "[SDS-2026] 김경연"
-              },
-              "Body": {
-                "Text": {
-                  "Data": "행복한 주말 보내세요👍👍"
-                }
-              }
-            }'
-  
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: save
+      run: mkdir staging && cp target/*.jar staging
+    - name: artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Package
+        path: staging
