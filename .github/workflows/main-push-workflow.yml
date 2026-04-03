@@ -38,5 +38,5 @@ jobs:
         run: |
           aws ses send-email \
             --from "kgy556@gmail.com"
-            --destination "ToAddress=kgy556@naver.com"
-            --message "Subjet={Data=[SDS-2026] 김경연},Body={Text={Data=행복한 주말 보내세요👍👍}}"
+            --Destination "ToAddress=kgy556@naver.com"
+            --Message "Subjet={Data=[SDS-2026] 김경연},Body={Text={Data=행복한 주말 보내세요👍👍}}"
