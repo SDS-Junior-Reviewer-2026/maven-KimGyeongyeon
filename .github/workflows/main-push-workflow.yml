@@ -25,3 +25,18 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Say Goodbye
       run: echo "\n\n************GoodBye****************\n"
+  send-mail-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credential
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: ap-northeast-2
+      - name: Send Email
+        run: |
+          aws ses send-email \
+            --from "kgy556@gmail.com"
+            --destination "ToAddress=kgy556@naver.com"
+            --message "Subjet={Data=[SDS-2026] 김경연},Body={Text={Data=행복한 주말 보내세요👍👍}}"
