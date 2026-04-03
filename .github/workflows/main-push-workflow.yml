@@ -23,9 +23,9 @@ jobs:
       - name: Send Email
         run: |
           aws ses send-email \
-            --from "xxx@gmail.com" \
+            --from "kgy556@gmail.com" \
             --destination '{
-              "ToAddresses": ["xxxx@naver.com"]
+              "ToAddresses": ["sejin.choi@mincoding.co.kr"]
             }' \
             --message '{
               "Subject": {
